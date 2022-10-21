@@ -1,0 +1,18 @@
+[build-system]
+requires = ["flit_core >=3.2,<4"]
+build-backend = "flit_core.buildapi"
+
+[project]
+name = "llm_providers"
+authors = [{ name = "Jonathan Miller", email = "jon@jmill.dev" }]
+readme = "README.md"
+license = { file = "LICENSE" }
+classifiers = ["License :: OSI Approved :: MIT License"]
+dynamic = ["version", "description"]
+dependencies = ["aiohttp"]
+
+[project.urls]
+Home = "https://jmill.dev/projects/llm"
+
+[project.optional-dependencies]
+dev = ["black", "flake8", "mypy", "pytest", "pre-commit", "python-dotenv"]
