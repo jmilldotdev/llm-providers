@@ -3,13 +3,13 @@ import os
 
 from dotenv import load_dotenv
 
-from llm_providers.providers.openai import OpenAIProvider
+from llm_providers.providers.ai21 import AI21Provider
 
 
 async def main():
     load_dotenv()
-    provider = OpenAIProvider(
-        connection_str=os.environ.get("OPENAI_API_KEY"),
+    provider = AI21Provider(
+        connection_str=os.environ.get("AI21_API_KEY"),
     )
 
     completion = await provider.complete(query="hey i'm a dog who")
