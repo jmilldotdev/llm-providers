@@ -3,7 +3,7 @@ import os
 
 from dotenv import load_dotenv
 
-from llm_providers.providers.ai21 import AI21Provider
+from llm_providers.ai21 import AI21Provider
 
 
 async def main():

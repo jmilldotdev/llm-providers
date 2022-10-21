@@ -3,7 +3,7 @@ import os
 
 from dotenv import load_dotenv
 
-from llm_providers.providers.cohere import CohereProvider
+from llm_providers.cohere import CohereProvider
 
 
 async def main():

@@ -3,7 +3,7 @@ import os
 
 from dotenv import load_dotenv
 
-from llm_providers.providers.openai import OpenAIProvider
+from llm_providers.openai import OpenAIProvider
 
 
 async def main():

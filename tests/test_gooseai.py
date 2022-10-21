@@ -3,7 +3,7 @@ import os
 
 from dotenv import load_dotenv
 
-from llm_providers.providers.gooseai import GooseAIProvider
+from llm_providers.gooseai import GooseAIProvider
 
 
 async def main():
