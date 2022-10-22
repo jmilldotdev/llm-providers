@@ -11,6 +11,9 @@ classifiers = ["License :: OSI Approved :: MIT License"]
 dynamic = ["version", "description"]
 dependencies = ["aiohttp"]
 
+[tool.flit.sdist]
+include = ["llm_providers/"]
+
 [project.urls]
 Home = "https://jmill.dev/projects/llm-providers"
 
