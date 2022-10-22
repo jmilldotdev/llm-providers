@@ -1,12 +1,13 @@
 from abc import ABC
 from abc import abstractmethod
-from collections.abc import Callable
 from typing import Any
 from typing import Dict
 from typing import List
-from typing import Tuple
 
 import aiohttp
+
+from llm_providers.models import Completion
+from llm_providers.models import PreparedRequest
 
 
 class LLMProvider(ABC):
@@ -61,22 +62,56 @@ class LLMProvider(ABC):
     @abstractmethod
     def prepare_request(
         self,
-        query: str,
+        prompt: str,
         request_args: Dict[str, Any] = {},
-    ) -> Tuple[str, Dict[str, Any], Dict[str, Any]]:
+    ) -> PreparedRequest:
+        """
+        Prepare request.
+
+        Args:
+            prompt: prompt string.
+            request_args: request arguments.
+
+        Returns:
+            api_url: url to send request to.
+
+        """
+        raise NotImplementedError()
+
+    @abstractmethod
+    def parse_completion(
+        self,
+        response: Dict[str, Any],
+    ) -> str:
+        """
+        Formats the response object to return a completion string.
+
+        Args:
+            response: response object.
+
+        Returns:
+            Completion text.
+
+        """
         raise NotImplementedError()
 
     async def complete(
         self,
-        query: str,
+        prompt: str,
         request_args: Dict[str, Any] = {},
-    ) -> Tuple[Callable[[], Dict], Dict]:
+    ) -> Completion:
         async with aiohttp.ClientSession() as session:
-            api_url, request_params, headers = self.prepare_request(query, request_args)
+            prepared_request = self.prepare_request(prompt, request_args)
             async with session.post(
-                api_url,
-                json=request_params,
-                headers=headers,
+                prepared_request.api_url,
+                json=prepared_request.params,
+                headers=prepared_request.headers,
             ) as resp:
                 response = await resp.json()
-                return response, request_params
+                completion_text = self.parse_completion(response)
+                return Completion(
+                    prompt=prompt,
+                    completion_text=completion_text,
+                    response=response,
+                    params=prepared_request.params,
+                )

@@ -12,8 +12,9 @@ async def main():
         connection_str=os.environ.get("AI21_API_KEY"),
     )
 
-    completion = await provider.complete(query="hey i'm a dog who")
-    print(completion)
+    completion = await provider.complete(prompt="hey i'm a robot who")
+    assert completion.prompt == "hey i'm a robot who"
+    assert type(completion.completion_text) == str
 
 
 if __name__ == "__main__":
