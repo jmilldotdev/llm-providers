@@ -12,7 +12,7 @@ dynamic = ["version", "description"]
 dependencies = ["aiohttp"]
 
 [project.urls]
-Home = "https://jmill.dev/projects/llm"
+Home = "https://jmill.dev/projects/llm-providers"
 
 [project.optional-dependencies]
 dev = ["black", "flake8", "mypy", "pytest", "pre-commit", "python-dotenv"]
